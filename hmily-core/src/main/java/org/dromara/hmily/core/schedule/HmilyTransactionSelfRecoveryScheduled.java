@@ -73,7 +73,7 @@ public class HmilyTransactionSelfRecoveryScheduled implements ApplicationListene
                 new ScheduledThreadPoolExecutor(1,
                         HmilyThreadFactory.create("hmily-transaction-self-recovery", true));
         hmilyTransactionRecoveryService = new HmilyTransactionRecoveryService(hmilyCoordinatorRepository);
-//        if (1 >1)
+        if (1 >1)
         selfRecovery();
     }
 
@@ -83,7 +83,7 @@ public class HmilyTransactionSelfRecoveryScheduled implements ApplicationListene
     private void selfRecovery() {
         scheduledExecutorService
                 .scheduleWithFixedDelay(() -> {
-                    LogUtil.info(LOGGER, "self recovery execute delayTime:{}", () -> hmilyConfig.getScheduledDelay());
+                    LogUtil.info(LOGGER, "[d] self recovery execute delayTime:{}", () -> hmilyConfig.getScheduledDelay());
                     try {
                         final List<HmilyTransaction> hmilyTransactions = hmilyCoordinatorRepository.listAllByDelay(acquireData());
                         if (CollectionUtils.isEmpty(hmilyTransactions)) {

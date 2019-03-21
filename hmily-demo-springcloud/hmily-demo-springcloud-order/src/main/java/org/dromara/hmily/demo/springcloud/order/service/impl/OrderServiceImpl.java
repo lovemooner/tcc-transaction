@@ -112,7 +112,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Order buildOrder(Integer count, BigDecimal amount) {
-        LOGGER.debug("构建订单对象");
         Order order = new Order();
         order.setCreateTime(new Date());
         order.setNumber(IdWorkerUtils.getInstance().buildPartNumber());

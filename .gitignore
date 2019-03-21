@@ -1,5 +1,12 @@
 /target/*
 /*/target/*
+/*/*/target/*
 /*.iml
 /.idea/*
 /logs/*
+/hmily-demo-springcloud-account/target/
+/hmily-demo-springcloud/hmily-demo-springcloud-account/target/
+
+
+
+

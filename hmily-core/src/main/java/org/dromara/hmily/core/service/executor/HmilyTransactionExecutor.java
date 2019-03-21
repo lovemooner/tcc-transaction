@@ -82,7 +82,7 @@ public class HmilyTransactionExecutor {
      * @return TccTransaction
      */
     public HmilyTransaction preTry(final ProceedingJoinPoint point) {
-        LogUtil.debug(LOGGER, () -> "......hmily transaction starter....");
+        LogUtil.debug(LOGGER, () -> "......preTry-->transaction starter....");
         //build tccTransaction
         final HmilyTransaction hmilyTransaction = buildHmilyTransaction(point, HmilyRoleEnum.START.getCode(), null);
         //save tccTransaction in threadLocal
@@ -128,7 +128,7 @@ public class HmilyTransactionExecutor {
      * @throws HmilyRuntimeException ex
      */
     public void confirm(final HmilyTransaction currentTransaction) throws HmilyRuntimeException {
-        LogUtil.debug(LOGGER, () -> "hmily transaction confirm .......！start");
+        LogUtil.debug(LOGGER, () -> "[d] transaction confirm .......！start");
         if (Objects.isNull(currentTransaction) || CollectionUtils.isEmpty(currentTransaction.getHmilyParticipants())) {
             return;
         }
@@ -145,7 +145,12 @@ public class HmilyTransactionExecutor {
                     context.setRole(HmilyRoleEnum.START.getCode());
                     context.setTransId(hmilyParticipant.getTransId());
                     HmilyTransactionContextLocal.getInstance().set(context);
-                    executeParticipantMethod(hmilyParticipant.getConfirmHmilyInvocation());
+
+                    HmilyInvocation invocation= hmilyParticipant.getConfirmHmilyInvocation();
+                    final Class clazz = invocation.getTargetClass();
+                    final String method = invocation.getMethodName();
+                    LOGGER.info("[d] transaction confirm executeParticipantMethod "+clazz+" "+method);
+                    executeParticipantMethod(invocation);
                 } catch (Exception e) {
                     LogUtil.error(LOGGER, "execute confirm :{}", () -> e);
                     success = false;
@@ -306,6 +311,7 @@ public class HmilyTransactionExecutor {
             final Object[] args = hmilyInvocation.getArgs();
             final Class[] parameterTypes = hmilyInvocation.getParameterTypes();
             final Object bean = SpringBeanUtils.getInstance().getBean(clazz);
+            System.out.println("invokeMethod"+bean.toString()+" "+method.toString());
             MethodUtils.invokeMethod(bean, method, args, parameterTypes);
         }
     }

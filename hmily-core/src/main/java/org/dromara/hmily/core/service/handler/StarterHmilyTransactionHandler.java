@@ -26,6 +26,8 @@ import org.dromara.hmily.core.concurrent.threadlocal.HmilyTransactionContextLoca
 import org.dromara.hmily.core.concurrent.threadpool.HmilyThreadFactory;
 import org.dromara.hmily.core.service.HmilyTransactionHandler;
 import org.dromara.hmily.core.service.executor.HmilyTransactionExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -43,6 +45,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class StarterHmilyTransactionHandler implements HmilyTransactionHandler, ApplicationListener<ContextRefreshedEvent> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StarterHmilyTransactionHandler.class);
 
     private final HmilyTransactionExecutor hmilyTransactionExecutor;
 
@@ -67,20 +71,22 @@ public class StarterHmilyTransactionHandler implements HmilyTransactionHandler, 
             throws Throwable {
         Object returnValue;
         try {
+            LOGGER.info("[d] preTry");
             HmilyTransaction hmilyTransaction = hmilyTransactionExecutor.preTry(point);//1.preTry
             try {
                 //2.execute try
+                LOGGER.info("[d] 2.execute try");
                 returnValue = point.proceed();
                 hmilyTransaction.setStatus(HmilyActionEnum.TRYING.getCode());
                 hmilyTransactionExecutor.updateStatus(hmilyTransaction);
             } catch (Throwable throwable) {
-                //if exception ,execute cancel
+                LOGGER.info("[d] if exception ,execute cancel");
                 final HmilyTransaction currentTransaction = hmilyTransactionExecutor.getCurrentTransaction();
                 executor.execute(() -> hmilyTransactionExecutor
                         .cancel(currentTransaction));
                 throw throwable;
             }
-            //if try success-->execute confirm
+            LOGGER.info("[d] if try success-->execute confirm");
             final HmilyTransaction currentTransaction = hmilyTransactionExecutor.getCurrentTransaction();
             executor.execute(() -> hmilyTransactionExecutor.confirm(currentTransaction));
         } finally {

@@ -27,6 +27,8 @@ import org.dromara.hmily.core.cache.HmilyTransactionGuavaCacheManager;
 import org.dromara.hmily.core.concurrent.threadlocal.HmilyTransactionContextLocal;
 import org.dromara.hmily.core.service.HmilyTransactionHandler;
 import org.dromara.hmily.core.service.executor.HmilyTransactionExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +41,7 @@ import java.lang.reflect.Method;
  */
 @Component
 public class ParticipantHmilyTransactionHandler implements HmilyTransactionHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParticipantHmilyTransactionHandler.class);
 
     private final HmilyTransactionExecutor hmilyTransactionExecutor;
 
@@ -59,6 +62,7 @@ public class ParticipantHmilyTransactionHandler implements HmilyTransactionHandl
         switch (HmilyActionEnum.acquireByCode(context.getAction())) {
             case TRYING:
                 try {
+                    LOGGER.info("[d] preTryParticipant");
                     hmilyTransaction = hmilyTransactionExecutor.preTryParticipant(context, point);
                     final Object proceed = point.proceed();
                     hmilyTransaction.setStatus(HmilyActionEnum.TRYING.getCode());
@@ -73,6 +77,7 @@ public class ParticipantHmilyTransactionHandler implements HmilyTransactionHandl
                     HmilyTransactionContextLocal.getInstance().remove();
                 }
             case CONFIRMING:
+                LOGGER.info("[d] CONFIRMING");
                 currentTransaction = HmilyTransactionGuavaCacheManager
                         .getInstance().getHmilyTransaction(context.getTransId());
                 hmilyTransactionExecutor.confirm(currentTransaction);

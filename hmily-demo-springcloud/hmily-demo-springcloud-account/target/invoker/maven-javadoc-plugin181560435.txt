@@ -1,7 +1,0 @@
-Invoking Maven for the goals: [org.apache.maven.plugins:maven-javadoc-plugin:2.10.3:javadoc] with no properties
-
-M2_HOME=/Applications/IntelliJ IDEA CE.app/Contents/plugins/maven/lib/maven3
-MAVEN_OPTS=null
-JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre
-JAVA_OPTS=null
-

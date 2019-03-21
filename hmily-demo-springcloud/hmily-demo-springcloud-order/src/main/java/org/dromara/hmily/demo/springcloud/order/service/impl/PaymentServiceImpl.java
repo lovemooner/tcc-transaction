@@ -81,13 +81,14 @@ public class PaymentServiceImpl implements PaymentService {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setAmount(order.getTotalAmount());
         accountDTO.setUserId(order.getUserId());
-        LOGGER.debug("===========执行springcloud扣减资金接口==========");
+        LOGGER.info("[d] accountClient.payment");
         accountClient.payment(accountDTO);
         //进入扣减库存操作
         InventoryDTO inventoryDTO = new InventoryDTO();
         inventoryDTO.setCount(order.getCount());
         inventoryDTO.setProductId(order.getProductId());
-        inventoryClient.decrease(inventoryDTO);
+        LOGGER.info("[d] inventoryClient.decrease");
+//        inventoryClient.decrease(inventoryDTO);
     }
 
     @Override
@@ -129,13 +130,13 @@ public class PaymentServiceImpl implements PaymentService {
     public void confirmOrderStatus(Order order) {
         order.setStatus(OrderStatusEnum.PAY_SUCCESS.getCode());
         orderMapper.update(order);
-        LOGGER.info("=========进行订单confirm操作完成================");
+        LOGGER.info("=========order confirm操作完成================");
     }
 
     public void cancelOrderStatus(Order order) {
         order.setStatus(OrderStatusEnum.PAY_FAIL.getCode());
         orderMapper.update(order);
-        LOGGER.info("=========进行订单cancel操作完成================");
+        LOGGER.info("=========order cancel操作完成================");
     }
 
 }

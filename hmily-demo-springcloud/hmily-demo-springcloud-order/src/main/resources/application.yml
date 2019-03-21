@@ -26,6 +26,13 @@ eureka:
  instance:
    prefer-ip-address: true
 
+#feign
+feign:
+   client:
+      config:
+          default:
+             connectTimeout: 160000000
+             readTimeout: 160000000
 #logging
 logging:
     level:

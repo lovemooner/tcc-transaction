@@ -59,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Hmily(confirmMethod = "confirm", cancelMethod = "cancel")
     public boolean payment(AccountDTO accountDTO) {
-        LOGGER.debug("============springcloud执行try付款接口===============");
+        LOGGER.info("[d] account.payment 执行try付款接口===============");
         accountMapper.update(accountDTO);
 //        throw new RuntimeException("");
         return Boolean.TRUE;

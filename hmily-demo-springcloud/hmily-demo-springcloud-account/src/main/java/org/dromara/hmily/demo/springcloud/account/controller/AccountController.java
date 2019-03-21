@@ -19,6 +19,8 @@ package org.dromara.hmily.demo.springcloud.account.controller;
 
 import org.dromara.hmily.demo.springcloud.account.dto.AccountDTO;
 import org.dromara.hmily.demo.springcloud.account.service.AccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +37,7 @@ import java.math.BigDecimal;
 @RequestMapping("/account")
 @SuppressWarnings("all")
 public class AccountController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
     private final AccountService accountService;
 
     @Autowired
@@ -45,6 +47,7 @@ public class AccountController {
 
     @RequestMapping("/payment")
     public Boolean save(@RequestBody AccountDTO accountDO) {
+        LOGGER.info("AccountController payment");
         return accountService.payment(accountDO);
     }
 

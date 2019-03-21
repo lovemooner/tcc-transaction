@@ -1,7 +1,0 @@
-org.dromara.hmily.demo.springcloud.account
-org.dromara.hmily.demo.springcloud.account.controller
-org.dromara.hmily.demo.springcloud.account.dto
-org.dromara.hmily.demo.springcloud.account.entity
-org.dromara.hmily.demo.springcloud.account.mapper
-org.dromara.hmily.demo.springcloud.account.service
-org.dromara.hmily.demo.springcloud.account.service.impl

@@ -27,6 +27,8 @@ import org.dromara.hmily.common.enums.HmilyRoleEnum;
 import org.dromara.hmily.core.concurrent.threadlocal.HmilyTransactionContextLocal;
 import org.dromara.hmily.core.helper.SpringBeanUtils;
 import org.dromara.hmily.core.service.executor.HmilyTransactionExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -38,6 +40,7 @@ import java.util.Objects;
  * @author xiaoyu
  */
 public class HmilyFeignHandler implements InvocationHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HmilyFeignHandler.class);
 
     private InvocationHandler delegate;
 
@@ -60,6 +63,7 @@ public class HmilyFeignHandler implements InvocationHandler {
                 final HmilyTransactionExecutor hmilyTransactionExecutor =
                         SpringBeanUtils.getInstance().getBean(HmilyTransactionExecutor.class);
                 final Object invoke = delegate.invoke(proxy, method, args);
+                //只有try阶段 add participant
                 final HmilyParticipant hmilyParticipant = buildParticipant(hmily, method, args, hmilyTransactionContext);
                 if (hmilyTransactionContext.getRole() == HmilyRoleEnum.INLINE.getCode()) {
                     hmilyTransactionExecutor.registerByNested(hmilyTransactionContext.getTransId(),
@@ -81,6 +85,7 @@ public class HmilyFeignHandler implements InvocationHandler {
                 || (HmilyActionEnum.TRYING.getCode() != hmilyTransactionContext.getAction())) {
             return null;
         }
+        LOGGER.info("[d] buildParticipant after feign call ");
         String confirmMethodName = hmily.confirmMethod();
         if (StringUtils.isBlank(confirmMethodName)) {
             confirmMethodName = method.getName();
