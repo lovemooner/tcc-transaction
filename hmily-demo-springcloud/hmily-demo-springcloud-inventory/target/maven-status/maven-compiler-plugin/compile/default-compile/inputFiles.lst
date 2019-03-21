@@ -1,0 +1,7 @@
+/Users/ndong/project/hmily/hmily-demo-springcloud/hmily-demo-springcloud-inventory/src/main/java/org/dromara/hmily/demo/springcloud/inventory/SpringCloudHmilyInventoryApplication.java
+/Users/ndong/project/hmily/hmily-demo-springcloud/hmily-demo-springcloud-inventory/src/main/java/org/dromara/hmily/demo/springcloud/inventory/entity/InventoryDO.java
+/Users/ndong/project/hmily/hmily-demo-springcloud/hmily-demo-springcloud-inventory/src/main/java/org/dromara/hmily/demo/springcloud/inventory/controller/InventoryController.java
+/Users/ndong/project/hmily/hmily-demo-springcloud/hmily-demo-springcloud-inventory/src/main/java/org/dromara/hmily/demo/springcloud/inventory/mapper/InventoryMapper.java
+/Users/ndong/project/hmily/hmily-demo-springcloud/hmily-demo-springcloud-inventory/src/main/java/org/dromara/hmily/demo/springcloud/inventory/dto/InventoryDTO.java
+/Users/ndong/project/hmily/hmily-demo-springcloud/hmily-demo-springcloud-inventory/src/main/java/org/dromara/hmily/demo/springcloud/inventory/service/impl/InventoryServiceImpl.java
+/Users/ndong/project/hmily/hmily-demo-springcloud/hmily-demo-springcloud-inventory/src/main/java/org/dromara/hmily/demo/springcloud/inventory/service/InventoryService.java

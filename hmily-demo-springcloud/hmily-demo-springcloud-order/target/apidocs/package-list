@@ -1,0 +1,10 @@
+org.dromara.hmily.demo.springcloud.order
+org.dromara.hmily.demo.springcloud.order.client
+org.dromara.hmily.demo.springcloud.order.configuration
+org.dromara.hmily.demo.springcloud.order.controller
+org.dromara.hmily.demo.springcloud.order.dto
+org.dromara.hmily.demo.springcloud.order.entity
+org.dromara.hmily.demo.springcloud.order.enums
+org.dromara.hmily.demo.springcloud.order.mapper
+org.dromara.hmily.demo.springcloud.order.service
+org.dromara.hmily.demo.springcloud.order.service.impl

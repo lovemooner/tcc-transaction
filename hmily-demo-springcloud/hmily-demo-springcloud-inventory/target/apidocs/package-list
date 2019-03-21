@@ -1,0 +1,7 @@
+org.dromara.hmily.demo.springcloud.inventory
+org.dromara.hmily.demo.springcloud.inventory.controller
+org.dromara.hmily.demo.springcloud.inventory.dto
+org.dromara.hmily.demo.springcloud.inventory.entity
+org.dromara.hmily.demo.springcloud.inventory.mapper
+org.dromara.hmily.demo.springcloud.inventory.service
+org.dromara.hmily.demo.springcloud.inventory.service.impl
